@@ -1,28 +1,16 @@
-import getListStudents from './0-get_list_students';
-
-export default function updateStudentGradeByCity(studentList, city, newGrades) {
-  let newStudentList = studentList.filter(
-    (student) => student.location === city
-  );
-  const gradesMap = new Map();
-  for (const grade of newGrades) {
-    gradesMap.set(grade.studentId, grade.grade);
+export default function updateStudentGradeByCity(listStudents, city, newGrades) {
+  const students = listStudents.filter((student) => student.location === city);
+  for (const student of students) {
+    student.grade = 'N/A';
   }
-  console.log(newStudentList);
-  const finalList = newStudentList.map((student) =>
-  );
-  return finalList;
+  const newStudents = students.map((student) => {
+    const single = student;
+    for (const grade of newGrades) {
+      if (single.id === grade.studentId) {
+        single.grade = grade.grade;
+      }
+    }
+    return single;
+  });
+  return newStudents;
 }
-
-console.log(
-  updateStudentGradeByCity(getListStudents(), 'San Francisco', [
-    { studentId: 5, grade: 97 },
-    { studentId: 1, grade: 86 },
-  ])
-);
-
-console.log(
-  updateStudentGradeByCity(getListStudents(), 'San Francisco', [
-    { studentId: 5, grade: 97 },
-  ])
-);
